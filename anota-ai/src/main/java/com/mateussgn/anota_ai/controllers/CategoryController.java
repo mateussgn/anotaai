@@ -3,7 +3,6 @@ package com.mateussgn.anota_ai.controllers;
 import com.mateussgn.anota_ai.domain.category.Category;
 import com.mateussgn.anota_ai.domain.category.CategoryDTO;
 import com.mateussgn.anota_ai.services.CategoryService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,7 @@ public class CategoryController {
 
     private CategoryService service;
 
-    public CategoryController(CategoryService service, CategoryService categoryService) {
+    public CategoryController(CategoryService service) {
         this.service = service;
     }
 

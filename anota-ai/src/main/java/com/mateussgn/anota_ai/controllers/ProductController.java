@@ -3,7 +3,6 @@ package com.mateussgn.anota_ai.controllers;
 import com.mateussgn.anota_ai.domain.product.Product;
 import com.mateussgn.anota_ai.domain.product.ProductDTO;
 import com.mateussgn.anota_ai.services.ProductService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
