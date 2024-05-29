@@ -42,8 +42,10 @@ public class ProductService {
         Product product = this.repository.findById(id)
                 .orElseThrow(ProductNotFoundException::new);
 
-        this.categoryService.getById(productDTO.categoryId())
-                .ifPresent(product::setCategory);
+        if (productDTO.categoryId() != null) {
+            this.categoryService.getById(productDTO.categoryId())
+                    .ifPresent(product::setCategory);
+        }
 
         if (productDTO.title().isEmpty()) {
             product.setTitle(product.getTitle());
