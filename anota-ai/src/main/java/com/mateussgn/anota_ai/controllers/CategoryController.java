@@ -3,6 +3,7 @@ package com.mateussgn.anota_ai.controllers;
 import com.mateussgn.anota_ai.domain.category.Category;
 import com.mateussgn.anota_ai.domain.category.CategoryDTO;
 import com.mateussgn.anota_ai.services.CategoryService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,5 +31,12 @@ public class CategoryController {
         List<Category> categories = this.service.getAll();
 
         return ResponseEntity.ok().body(categories);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> update(@PathParam("id") String id, CategoryDTO categoryDTO) {
+        Category updatedCategory = this.service.update(id, categoryDTO);
+
+        return ResponseEntity.ok().body(updatedCategory);
     }
 }
