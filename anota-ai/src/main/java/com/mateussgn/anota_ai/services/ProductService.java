@@ -28,11 +28,9 @@ public class ProductService {
     }
 
     public Product insert(ProductDTO productDTO) {
-        Category category = this.categoryService.getById(productDTO.categoryId())
-                .orElseThrow(CategoryNotFoundException::new);
+        this.categoryService.getById(productDTO.categoryId()).orElseThrow(CategoryNotFoundException::new);
 
         Product newProduct = new Product(productDTO);
-        newProduct.setCategory(category);
 
         this.repository.save(newProduct);
 
@@ -50,8 +48,9 @@ public class ProductService {
                 .orElseThrow(ProductNotFoundException::new);
 
         if (productDTO.categoryId() != null) {
-            this.categoryService.getById(productDTO.categoryId())
-                    .ifPresent(product::setCategory);
+            this.categoryService.getById(productDTO.categoryId()).orElseThrow(CategoryNotFoundException::new);
+
+            product.setCategoryId(productDTO.categoryId());
         }
 
         if (productDTO.title().isEmpty()) {
