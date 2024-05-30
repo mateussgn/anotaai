@@ -4,6 +4,8 @@ import com.mateussgn.anota_ai.domain.category.Category;
 import com.mateussgn.anota_ai.domain.category.CategoryDTO;
 import com.mateussgn.anota_ai.domain.category.exceptions.CategoryNotFoundException;
 import com.mateussgn.anota_ai.repository.CategoryRepository;
+import com.mateussgn.anota_ai.services.aws.AwsSnsService;
+import com.mateussgn.anota_ai.services.aws.MessageDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +16,19 @@ public class CategoryService {
 
     private final CategoryRepository repository;
 
-    public CategoryService(CategoryRepository repository) {
+    private final AwsSnsService awsSnsService;
+
+    public CategoryService(CategoryRepository repository, AwsSnsService awsSnsService) {
         this.repository = repository;
+        this.awsSnsService = awsSnsService;
+
     }
 
     public Category insert(CategoryDTO categoryDTO) {
         Category newCategory = new Category(categoryDTO);
         this.repository.save(newCategory);
+
+        this.awsSnsService.publish(new MessageDTO(newCategory.toString()));
 
         return newCategory;
     }
@@ -46,6 +54,8 @@ public class CategoryService {
         }
 
         this.repository.save(category);
+
+        this.awsSnsService.publish(new MessageDTO(category.toString()));
 
         return category;
     }
