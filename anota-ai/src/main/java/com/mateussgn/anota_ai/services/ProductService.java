@@ -15,11 +15,11 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
-    private ProductRepository repository;
+    private final ProductRepository repository;
 
-    private AwsSnsService awsSnsService;
+    private final AwsSnsService awsSnsService;
 
     public ProductService(ProductRepository repository, CategoryService categoryService, AwsSnsService awsSnsService) {
         this.repository = repository;
