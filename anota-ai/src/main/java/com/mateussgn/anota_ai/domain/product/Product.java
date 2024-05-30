@@ -1,6 +1,5 @@
 package com.mateussgn.anota_ai.domain.product;
 
-import com.mateussgn.anota_ai.domain.category.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

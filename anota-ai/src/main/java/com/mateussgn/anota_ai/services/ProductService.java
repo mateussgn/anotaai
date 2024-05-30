@@ -1,6 +1,5 @@
 package com.mateussgn.anota_ai.services;
 
-import com.mateussgn.anota_ai.domain.category.Category;
 import com.mateussgn.anota_ai.domain.category.exceptions.CategoryNotFoundException;
 import com.mateussgn.anota_ai.domain.product.exceptions.ProductNotFoundException;
 import com.mateussgn.anota_ai.domain.product.Product;
@@ -34,7 +33,7 @@ public class ProductService {
 
         this.repository.save(newProduct);
 
-        this.awsSnsService.publish(new MessageDTO(newProduct.toString())));
+        this.awsSnsService.publish(new MessageDTO(newProduct.toString()));
 
         return newProduct;
     }
