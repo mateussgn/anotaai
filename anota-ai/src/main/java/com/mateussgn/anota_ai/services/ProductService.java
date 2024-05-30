@@ -34,7 +34,7 @@ public class ProductService {
 
         this.repository.save(newProduct);
 
-        this.awsSnsService.publish(new MessageDTO(newProduct.getOwnerId()));
+        this.awsSnsService.publish(new MessageDTO(newProduct.toString())));
 
         return newProduct;
     }
@@ -67,7 +67,7 @@ public class ProductService {
 
         this.repository.save(product);
 
-        this.awsSnsService.publish(new MessageDTO(product.getOwnerId()));
+        this.awsSnsService.publish(new MessageDTO(product.toString()));
 
         return product;
     }
