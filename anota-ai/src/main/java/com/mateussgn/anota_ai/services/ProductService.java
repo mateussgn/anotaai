@@ -6,6 +6,8 @@ import com.mateussgn.anota_ai.domain.product.exceptions.ProductNotFoundException
 import com.mateussgn.anota_ai.domain.product.Product;
 import com.mateussgn.anota_ai.domain.product.ProductDTO;
 import com.mateussgn.anota_ai.repository.ProductRepository;
+import com.mateussgn.anota_ai.services.aws.AwsSnsService;
+import com.mateussgn.anota_ai.services.aws.MessageDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +19,12 @@ public class ProductService {
 
     private ProductRepository repository;
 
-    public ProductService(ProductRepository repository, CategoryService categoryService) {
+    private AwsSnsService awsSnsService;
+
+    public ProductService(ProductRepository repository, CategoryService categoryService, AwsSnsService awsSnsService) {
         this.repository = repository;
         this.categoryService = categoryService;
+        this.awsSnsService = awsSnsService;
     }
 
     public Product insert(ProductDTO productDTO) {
@@ -30,6 +35,8 @@ public class ProductService {
         newProduct.setCategory(category);
 
         this.repository.save(newProduct);
+
+        this.awsSnsService.publish(new MessageDTO(newProduct.getOwnerId()));
 
         return newProduct;
     }
@@ -60,6 +67,8 @@ public class ProductService {
         }
 
         this.repository.save(product);
+
+        this.awsSnsService.publish(new MessageDTO(product.getOwnerId()));
 
         return product;
     }
